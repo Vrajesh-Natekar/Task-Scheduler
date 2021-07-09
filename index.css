@@ -1,0 +1,26 @@
+h1{
+    font-weight:bold;
+}
+
+label{
+    font-weight: bold; 
+    margin-left:10px;
+    margin-top:10px; 
+    color:gray;
+}
+
+input{
+    border-radius: 20px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+textarea{
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.cb1{
+    background: #E5E5E5;
+    border-radius: 10px;
+}
