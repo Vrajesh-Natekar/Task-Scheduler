@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
 
     <style>
         body {
@@ -23,50 +24,52 @@
 
 <body>
     <div class="card">
-        <div class="card-body">
+       <div class="card-body"> 
             <div class="row">
                 <div class="col">
                     <h1 class="mx-auto text-center">Schedule Management</h1>
-                    <a href="view.php" class="btn btn-primary mt-3">View Schedule</a>
+                    <h5 style="text-align:center">Manage Your Daily Schedules</h5>
+                    <a href="view.php" class="btn btn-primary mt-3" style="margin-left: 15px;">View Schedule</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mt-4">
-                        <div class="card-body background-grey">
-                            <form action="" method="post">
-                                <div class="mt-3">
+                        <div class="card-body" style="background:#e5e5e5">
+                            <form class="cb1" action="" method="post" width="408.5px">
+                                <div class="col-md-4">
                                     <label for="date" class="form-label">Date</label>
-                                    <input type="date" class="form-control" name="date">
+                                    <input type="date" class="form-control" name="date"><br>
                                 </div>
-                                <div class="mt-3">
-                                    <label for="start_time" class="form-label">From Time</label>
-                                    <input type="time" class="form-control" name="start_time">
+                                <div class="col-md-4">
+                                    <label for="start_time" class="form-label">From (Time)</label>
+                                    <input type="time" class="form-control" name="start_time"><br>
                                 </div>
-                                <div class="mt-3">
-                                    <label for="end_time" class="form-label">To time</label>
-                                    <input type="time" class="form-control" name="end_time">
+                                <div class="col-md-4">
+                                    <label for="end_time" class="form-label">To (Time)</label>
+                                    <input type="time" class="form-control" name="end_time"><br>
                                 </div>
-                                <div class="mt-3">
-                                    <label for="comment" class="form-label">Comment</label>
+                                <div class="col-md-6">
+                                    <label for="comment" class="form-label">Comment/s</label>
                                     <textarea name="comment" class="form-control" id="comment" rows="3" placeholder="Enter comment..."></textarea>
                                 </div>
-                                <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-primary mt-3" style=" background:#0F8BFF;margin-bottom: 10px;margin-left: 10px;">Create Schedule</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card mt-4" style="height:100%;">
-                        <div class="card-body background-grey">
+                    <div class="card mt-4" style="height:95%">
+                        <div class="card-body" style="background:#e5e5e5">
+                        
                             <!-- PHP SCRIPT FOR INSERTING -->
                             <?php
                             $server = "localhost";
                             $username = "root";
-                            $password = "root";
-                            $dbname = "task_sheduler";
+                            $password = "";
+                            $dbname = "task_scheduler";
 
-                            $conn = mysqli_connect($server, $username, $password, $dbname, 3307);
+                            $conn = mysqli_connect($server, $username, $password, $dbname);
 
                             if ($conn->connect_error) {
                                 die("Connection to database failed due to " . $conn->connect_error);
@@ -92,13 +95,10 @@
 
                                 // Retrive Code
                                 $flag = 0;
-                                $sql1 = "select * from task_sheduler where date = '$date'";
+                                $sql1 = "select * from task_scheduler where date = '$date'";
                                 if ($result = $conn->query($sql1)) {
                                     while ($row = $result->fetch_assoc()) {
-                                        // echo $row['date'] . "<br>";
-                                        // echo $row['start_time'] . "<br>";
-                                        // echo $row['end_time'] . "<br>";
-                                        // echo $row['comment'] . "<br>";
+
 
 
                                         $start_time1 = strtotime($row['start_time']);
@@ -132,10 +132,10 @@
 
                                 if ($flag == 0) {
                                     // Insertion Code
-                                    $sql = "INSERT INTO `task_sheduler` (`date`,`start_time`, `end_time`, `comment`) VALUES ('$date','$start_time', '$end_time', '$comment')";
+                                    $sql = "INSERT INTO `task_scheduler` (`date`,`start_time`, `end_time`, `comment`) VALUES ('$date','$start_time', '$end_time', '$comment')";
                                     if ($conn->query($sql) === TRUE) {
                                     ?>
-                                        <div class="alert alert-success" role="alert">
+                                        <div class="alert alert-success" role="alert"  style="backgroung-color:#49FEBD">
                                             Schedule Booked Successfully
                                         </div>
                                     <?php
@@ -145,11 +145,11 @@
                                 } elseif ($flag == 1) {
                                     ?>
                                     <div class="alert alert-warning" role="alert">
-                                        This time slot is already booked, Enter some other schedule
+                                        This time slot is already being booked. Please enter some other schedule.
                                     </div>
                                     <?php
-                                    // echo "This time slot is already booked, Enter some other schedule";
-                                    echo "<br><br>Your time slots on {$date} are as follows";
+                                    
+                                    echo "<br><br> Your Schedule/s on {$date} are as follows:-";
 
                                     ?>
                                     <div class="row">
@@ -161,7 +161,6 @@
                                                     <div class="card mt-3">
                                                         <div class="card-body">
                                                             <?php
-                                                            // echo $row['date'] . "<br>";
                                                             echo "<strong>{$row['start_time']} " . " to ";
                                                             echo $row['end_time'] . "</strong><br>";
                                                             echo $row['comment'] . "<br>";
@@ -190,7 +189,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
 
     <!-- Bootstrap -->
@@ -198,15 +197,3 @@
 </body>
 
 </html>
-
-<!-- Insert Query -->
-<!-- INSERT INTO `task_sheduler` (`id`, `date`, `start_time`, `end_time`, `comment`) VALUES ('1', '2021-07-05', '06:00:00', '06:30:00', 'Gauti meeting'); -->
-
-<!-- if ($result = $conn->query($sql)) {
-while ($row = $result->fetch_assoc()) {
-echo $row['date'] . "<br>";
-echo $row['start_time'] . "<br>";
-echo $row['end_time'] . "<br>";
-echo $row['comment'] . "<br>";
-}
-} -->
