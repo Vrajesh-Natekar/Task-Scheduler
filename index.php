@@ -87,7 +87,7 @@
                                 if ($start_time2 >= $end_time2) {
                             ?>
                                     <div class="alert alert-danger" role="alert">
-                                        Start Time is less than End Time
+                                        Please Enter Correct Details Properly.
                                     </div>
                                     <?php
                                     die();
